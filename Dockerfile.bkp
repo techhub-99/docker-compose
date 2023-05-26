@@ -1,0 +1,21 @@
+FROM ruby:2.6.0
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -q && apt-get install -q -y \
+        curl apt-transport-https apt-utils dialog
+RUN apt-get update -y \
+    && apt-get install -y -q postgresql-client \
+    nodejs \
+    qt5-default \
+    libqt5webkit5-dev \
+    && apt-get clean \
+    && rm -f /var/lib/apt/lists/*_*
+
+WORKDIR /sample-rails6-app
+
+ADD Gemfile /sample-rails6-app/Gemfile
+ADD Gemfile.lock /sample-rails6-app/Gemfile.lock
+ADD yarn.lock /sample-rails6-app/yarn.lock
+
+RUN bundle install
+
+ADD . /sample-rails6-app

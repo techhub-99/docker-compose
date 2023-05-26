@@ -1,0 +1,28 @@
+# config/database.yml
+default: &default
+  adapter: postgresql
+  host: <%= ENV["POSTGRES_HOST"] %>
+  username: sample_rails6_app
+  password: super_secure
+  encoding: utf8
+  min_messages: warning
+  pool: 2
+  timeout: 5000
+
+development:
+  <<: *default
+  database: sample_rails6_app_development
+  username: sample_rails6_app
+  password: super_secure
+
+test:
+  <<: *default
+  database: sample_rails6_app_test
+  username: sample_rails6_app
+  password: super_secure
+
+production:
+  <<: *default
+  database: sample_rails6_app_production
+  username: sample_rails6_app
+  password: super_secure
